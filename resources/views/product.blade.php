@@ -1,77 +1,42 @@
 @extends('layout')
 
-@section('title', 'Shop')
+@section('title', $product->name)
 
-@section('extra-css')
-    <link rel="stylesheet" href="{{ asset('css/algolia.css') }}">
-@endsection
+@include('partials.nav')
 
 @section('content')
 
     @component('components.breadcrumbs')
         <a href="/">Home</a>
         <i class="fa fa-chevron-right breadcrumb-separator"></i>
-        <span>Laptop</span>
+        <a href="{{ route('shop.index') }}">Shop</a>
+        <i class="fa fa-chevron-right breadcrumb-separator"></i>
+        <span>{{ $product->name }}</span>
     @endcomponent
-    <div class="product-section container">
-        <div>
-            <div class="product-section-image">
-                <img src="images/macbook-pro.png" alt="product" class="active" id="currentImage">
-            </div>
-            <div class="product-section-images">
-                <div class="product-section-thumbnail selected">
-                    <img src="images/macbook-pro.png" alt="product">
-                </div>
 
-            </div>
+    <div class="product-section container">
+        <div class="product-section-image">
+            <img src="{{ asset('images/products/'.$product->slug.'.jpg') }}" alt="product" class="active" id="currentImage">
         </div>
         <div class="product-section-information">
-            <h1 class="product-section-title">Macbook Pro</h1>
-            <div class="product-section-subtitle">15 inch 1 TB SSD, 32GB RAM</div>
-            <div>5</div>
-            <div class="product-section-price">259€</div>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!
-            </p>
+            <h1 class="product-section-title">{{ $product->name }}</h1>
+            <div class="product-section-subtitle">{{ $product->detail }}</div>
+            <div class="product-section-price">{{ $product->productPrice() }}</div>
+            <p> {{ $product->description }} </p>
 
             <p>&nbsp;</p>
 
-            <form action="#" method="POST">
+            {{--<a href="#"><button type="submit" class="button button-plain">Add to Cart</button></a>--}}
+            <form action="{{ route('cart.store') }}" method="post">
                 {{ csrf_field() }}
+                <input type="hidden" name="id" value="{{ $product->id }}">
+                <input type="hidden" name="name" value="{{ $product->name }}">
+                <input type="hidden" name="price" value="{{ $product->price }}">
                 <button type="submit" class="button button-plain">Add to Cart</button>
-            </form>
 
+            </form>
         </div>
     </div> <!-- end product-section -->
 
-@endsection
-
-@section('extra-js')
-    <script>
-        (function(){
-            const currentImage = document.querySelector('#currentImage');
-            const images = document.querySelectorAll('.product-section-thumbnail');
-
-            images.forEach((element) => element.addEventListener('click', thumbnailClick));
-
-            function thumbnailClick(e) {
-                currentImage.classList.remove('active');
-
-                currentImage.addEventListener('transitionend', () => {
-                    currentImage.src = this.querySelector('img').src;
-                    currentImage.classList.add('active');
-                })
-
-                images.forEach((element) => element.classList.remove('selected'));
-                this.classList.add('selected');
-            }
-
-        })();
-    </script>
-
-    <!-- Include AlgoliaSearch JS Client and autocomplete.js library -->
-    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
-    <script src="{{ asset('js/algolia.js') }}"></script>
-
+    @include('partials.recommended-products')
 @endsection

@@ -10,4 +10,8 @@ class Product extends Model
         $money_format = new \NumberFormatter('fr_FR', \NumberFormatter::CURRENCY);
         return $money_format->formatCurrency($this->price / 100, 'EUR');
     }
+
+    public function scopeRecommendedProducts($query){
+        return $query->inRandomOrder()->take(4);
+    }
 }

@@ -2,16 +2,14 @@
 
 @section('title', 'Shop')
 
-@section('extra-css')
-    <link rel="stylesheet" href="{{ asset('css/algolia.css') }}">
-@endsection
+@include('partials.nav')
 
 @section('content')
 
     @component('components.breadcrumbs')
         <a href="/">Home</a>
         <i class="fa fa-chevron-right breadcrumb-separator"></i>
-        <span>Shop</span>
+        <a href="{{ route('shop.index') }}">Shop</a>
     @endcomponent
 
     <div class="products-section container">
@@ -37,59 +35,15 @@
         <div>
             <h1 class="stylish-heading">Laptops</h1>
             <div class="products text-center">
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="/images/macbook-pro.png" alt="product"></a>
-                    <a href="#"><div class="product-name">Macbook Pro</div></a>
-                    <div class="product-price">259€</div>
-                </div>
+                @foreach($products as $product)
+                    <div class="product">
+                        <a href="{{route('shop.show', $product->slug)}}"><img src="{{ asset('images/products/'.$product->slug.'.jpg') }}" alt="product"></a>
+                        <a href="{{route('shop.show', $product->slug)}}"><div class="product-name">{{ $product->name }}</div></a>
+                        <div class="product-price">{{ $product->productPrice() }}</div>
+                    </div>
+                 @endforeach
             </div> <!-- end products -->
-
-            <div class="spacer"></div>
         </div>
     </div>
 
-    @include('partials.blog')
-
-@endsection
-
-@section('extra-js')
-    <!-- Include AlgoliaSearch JS Client and autocomplete.js library -->
-    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
-    <script src="{{ asset('js/algolia.js') }}"></script>
 @endsection
