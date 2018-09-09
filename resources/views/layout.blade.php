@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 
     @yield('extra-css')
+    @yield('stripe-js')
 </head>
 
 <body class="@yield('body-class', '')">

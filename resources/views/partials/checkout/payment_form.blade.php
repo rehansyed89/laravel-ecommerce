@@ -1,4 +1,4 @@
-<form action="#" method="POST" id="payment-form">
+<form action="{{route('checkout.store')}}" method="POST" id="payment-form">
     {{ csrf_field() }}
     <h2>Billing Details</h2>
 
