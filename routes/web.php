@@ -18,3 +18,17 @@ Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
 
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
+Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');
+Route::post('/cart/draft/{product}', 'CartController@cartToDraft')->name('cart.draft');
+
+Route::delete('/saveForLater/{product}', 'SaveForLaterController@destroy')->name('saveForLater.destroy');
+Route::post('/saveForLater/draft/{product}', 'SaveForLaterController@draftToCart')->name('saveForLater.draft_to_cart');
+
+Route::get('/cart/empty', function(){
+    Cart::instance('saveForLater')->destroy();
+});
+
+
+// CHECKOUT
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+
