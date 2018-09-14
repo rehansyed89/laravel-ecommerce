@@ -46,3 +46,30 @@
 
     @include('partials.recommended-products')
 @endsection
+
+@section('extra-js')
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        (function () {
+            const classname = document.querySelectorAll('.quantity');
+
+            Array.from(classname).forEach(function (element) {
+                element.addEventListener('change',function () {
+                    const productId = element.getAttribute('data-id');
+                    axios.patch(`/cart/${productId}`,{
+                        quantity : this.value
+                    })
+                        .then(function(response){
+                            //console.log(response)
+                            window.location.href = '{{ route('cart.index') }}'
+                        })
+                        .catch(function(error){
+                            //console.log(error)
+                            window.location.href = '{{ route('cart.index') }}'
+                        });
+                })
+            })
+
+        })();
+    </script>
+@endsection

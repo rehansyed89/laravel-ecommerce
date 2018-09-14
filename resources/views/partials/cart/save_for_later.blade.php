@@ -22,7 +22,6 @@
 
                         <form action="{{route('saveForLater.draft_to_cart',$item->rowId)}}" method="POST">
                             {{ csrf_field() }}
-
                             <button type="submit" class="cart-options">Move to Cart</button>
                         </form>
                     </div>

@@ -23,15 +23,13 @@
                     </form>
                 </div>
                 <div>
-                    <select class="quantity">
-                        <option selected ="">1</option>
-                        <option >2</option>
-                        <option >3</option>
-                        <option >4</option>
-                        <option >5</option>
+                    <select class="quantity" data-id="{{ $item->rowId }}">
+                        @for($i = 1; $i <=5; $i++)
+                            <option {{ $item->qty == $i ? 'selected' : '' }}>{{$i }}</option>
+                        @endfor
                     </select>
                 </div>
-                <div>{{ $item->model->productPrice()}}</div>
+                <div>{{ productPrice($item->subtotal())}}</div>
             </div>
         </div> <!-- end cart-table-row -->
 

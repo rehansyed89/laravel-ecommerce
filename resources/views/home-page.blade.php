@@ -26,20 +26,20 @@
             </div>
         </div> <!--end top-nav-->
 
-    <div class="hero container">
-        <div class="hero-copy">
-            <h1> Ecommerce - Kapray</h1>
-            <p>We sell all kinds of stitched and unstitched cloths. Buy some stuff! </p>
-            <div class="hero-buttons">
-                <a href="#" class="button button-white">Button 1</a>
-                <a href="#" class="button button-white">Button 2</a>
-            </div>
-        </div><!--end hero-copy-->
+        <div class="hero container">
+            <div class="hero-copy">
+                <h1> Ecommerce - Kapray</h1>
+                <p>We sell all kinds of stitched and unstitched cloths. Buy some stuff! </p>
+                <div class="hero-buttons">
+                    <a href="#" class="button button-white">Button 1</a>
+                    <a href="#" class="button button-white">Button 2</a>
+                </div>
+            </div><!--end hero-copy-->
 
-        <div class="hero-image">
-            <img src="images/macbook-pro-laravel.png" alt="hero-image">
-        </div><!--end hero-image-->
-    </div><!--end hero-->
+            <div class="hero-image">
+                <img src="images/macbook-pro-laravel.png" alt="hero-image">
+            </div><!--end hero-image-->
+        </div><!--end hero-->
 
 </header>
 
