@@ -2,8 +2,6 @@
 
 @section('title', 'Cart')
 
-@include('partials.nav')
-
 @section('content')
     @component('components.breadcrumbs')
         <a href="/">Home</a>
@@ -60,8 +58,9 @@
                         quantity : this.value
                     })
                         .then(function(response){
-                            //console.log(response)
-                            window.location.href = '{{ route('cart.index') }}'
+                            console.log(response.data.itemPrice)
+                            $('#itemPrice-'+productId).text(response.data.itemPrice);
+                            //window.location.href = '{{ route('cart.index') }}'
                         })
                         .catch(function(error){
                             //console.log(error)

@@ -29,7 +29,7 @@
                         @endfor
                     </select>
                 </div>
-                <div>{{ productPrice($item->subtotal())}}</div>
+                <div id="itemPrice-{{ $item->rowId }}">{{ productPrice($item->subtotal())}}</div>
             </div>
         </div> <!-- end cart-table-row -->
 

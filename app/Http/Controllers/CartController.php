@@ -98,7 +98,17 @@ class CartController extends Controller
         Cart::update($id, $request->quantity);
 
         session()->flash('success_message', 'Quantity was updated successfully!');
-        return response()->json(['success' => true]);
+        $totalQuantities = $request->quantity;
+        $pricePerItem = Cart::get($id)->price;
+        $updatedPrice = $pricePerItem * $totalQuantities;
+
+        return response()->json([
+            'success' => true ,
+            'itemPrice' => productPrice($updatedPrice),
+            'tax' => productPrice(Cart::tax()),
+            'sutotal' => productPrice(Cart::subtotal()),
+            'total' => productPrice(Cart::total())
+        ]);
     }
 
     /**
