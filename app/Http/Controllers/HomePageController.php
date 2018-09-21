@@ -12,7 +12,7 @@ class HomePageController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $products = Product::inRandomOrder()->take(8)->get();
+        $products = Product::where('featured', true)->inRandomOrder()->take(8)->get();
 
         return view('home-page',[
             'products' => $products
