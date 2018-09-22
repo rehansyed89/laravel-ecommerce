@@ -17,8 +17,13 @@ class CartController extends Controller
     public function index()
     {
         $recommendedProducts = Product::recommendedProducts()->get();
+
         return view('cart',[
-        'recommendedProducts' =>$recommendedProducts
+        'recommendedProducts' =>$recommendedProducts,
+        'discount' =>getTotals()->get('discount'),
+        'tax' => getTotals()->get('tax'),
+        'subTotal' => getTotals()->get('subtotal'),
+        'total' => getTotals()->get('total')
         ]);
     }
 

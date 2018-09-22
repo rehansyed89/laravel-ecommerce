@@ -20,8 +20,6 @@
                 @include('partials.checkout.payment_form')
             </div>
 
-
-
             <div class="checkout-table-container">
                 <h2>Your Order</h2>
 

@@ -14,15 +14,21 @@
             @include('partials.messages')
 
             @if(Cart::count() >0)
-
                 <!-- Section : cart_table -->
                 @include('partials.cart.cart_table')
 
                 <!-- Section : have_code_container -->
-                @include('partials.cart.have_code_container')
+                @if(!session()->has('coupon'))
+                    @include('partials.cart.have_code_container')
+                @endif
 
                 <!-- Section : cart_totals -->
-                @include('partials.cart.cart_totals')
+                <div class="cart-totals">
+                    <div class="cart-totals-left">
+                        Shipping is free because we’re awesome like that. Also because that’s additional stuff I don’t feel like figuring out :).
+                    </div>
+                    @include('partials.cart.cart_totals')
+                </div>
 
                 <div class="cart-buttons">
                     <a href="{{ route('shop.index') }}" class="button">Continue Shopping</a>
@@ -58,9 +64,8 @@
                         quantity : this.value
                     })
                         .then(function(response){
-                            console.log(response.data.itemPrice)
-                            $('#itemPrice-'+productId).text(response.data.itemPrice);
-                            //window.location.href = '{{ route('cart.index') }}'
+                            //console.log(response.data.itemPrice)
+                            window.location.href = '{{ route('cart.index') }}'
                         })
                         .catch(function(error){
                             //console.log(error)

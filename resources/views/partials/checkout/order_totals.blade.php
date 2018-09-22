@@ -7,9 +7,9 @@
     </div>
 
     <div class="checkout-totals-right">
-        {{ productPrice(Cart::subtotal()) }} <br>
-        {{ productPrice(Cart::tax()) }} <br>
-        <span class="checkout-totals-total">{{ productPrice(Cart::total()) }}</span>
+        {{ productPrice(getTotals()->get('subtotal')) }} <span style="font-size: 10px; font-weight: bold; font-style: italic">({{ productPrice(Cart::subtotal()) }} - {{ productPrice(session()->get('coupon')['coupon_discount']) }})</span> <br>
+        {{ productPrice(getTotals()->get('tax')) }} <br>
+        <span class="checkout-totals-total">{{ productPrice(getTotals()->get('total')) }}</span>
 
     </div>
 </div> <!-- end checkout-totals -->

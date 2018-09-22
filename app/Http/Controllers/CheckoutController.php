@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         })->values()->toJson();
         try{
             $charge = Stripe::charges()->create([
-                'amount' => Cart::total() / 100,
+                'amount' => getTotals()->get('total') / 100,
                 'currency' => 'EUR',
                 'source' =>$request->stripeToken,
                 'description' => 'Order',
@@ -52,10 +52,11 @@ class CheckoutController extends Controller
                 'metadata' => [
                     'contents' => $contents,
                     'quantity' => Cart::instance('default')->count(),
-                    //'discount' => collect(session()->get('coupon'))->toJson(),
+                    'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
             ]);
             Cart::instance('default')->destroy();
+            session()->forget('coupon');
             return redirect()->route('confirmation.index')->with('success_message', 'Thank you! Your payment has been successfully accepted!');
         }catch (CardErrorException $e){
             return back()->withErrors('Error! '.$e->getMessage());
