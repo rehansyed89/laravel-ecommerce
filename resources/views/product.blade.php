@@ -15,8 +15,23 @@
     @endcomponent
 
     <div class="product-section container">
-        <div class="product-section-image">
-            <img src="{{ asset('images/products/'.$product->slug.'.jpg') }}" alt="product" class="active" id="currentImage">
+        <div>
+            <div class="product-section-image">
+                <img src="{{ productImage($product->image) }}" alt="{{ $product->name }}" class="active" id="currentImage">
+            </div>
+            <div class="product-section-images">
+                    <div class="product-section-thumbnail selected">
+                        <img src="{{ productImage($product->image) }}" alt="products">
+                    </div>
+                    @if($product->images)
+                        @foreach(json_decode($product->images,true) as $image)
+                            <div class="product-section-thumbnail" >
+                                <img src="{{ productImage($image) }}" alt="products">
+                            </div>
+                        @endforeach
+                    @endif
+            </div>
+
         </div>
         <div class="product-section-information">
             <h1 class="product-section-title">{{ $product->name }}</h1>
@@ -39,4 +54,29 @@
     </div> <!-- end product-section -->
 
     @include('partials.recommended-products')
+@endsection
+
+@section('extra-js')
+    <script>
+        (function(){
+            const currentImage = document.querySelector('#currentImage');
+            const thumbnailImages = document.querySelectorAll('.product-section-thumbnail');
+
+            thumbnailImages.forEach((el) => el.addEventListener('click', thumbnailClick));
+
+            function thumbnailClick(e){
+
+                currentImage.classList.remove('active');
+                currentImage.addEventListener('transitionend', () => {
+                    currentImage.src = this.querySelector('img').src;
+                    currentImage.classList.add('active');
+                })
+
+                thumbnailImages.forEach((el) => el.classList.remove('selected'));
+                this.classList.add('selected');
+            }
+
+        })();
+    </script>
+
 @endsection

@@ -84,5 +84,13 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'Lorem ' . $i . ' ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
             ])->categories()->attach(7);
         }
+
+        Product::create([
+            'name' => 'PS4',
+            'slug' => 'ps4',
+            'details' => 'This is a PS4 details',
+            'price' => 50000,
+            'description' => 'This is a PS4 description',
+        ])->categories()->attach(8);
     }
 }
