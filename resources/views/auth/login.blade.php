@@ -35,7 +35,7 @@
             <p><strong>Save time now.</strong></p>
             <p>You don't need an account to checkout.</p>
             <div class="spacer"></div>
-            <a href="#" class="auth-button-hollow">Continue as guest</a>
+            <a href="{{ route('guestCheckout.index') }}" class="auth-button-hollow">Continue as guest</a>
             <div class="spacer"></div>
             &nbsp;
             <div class="spacer"></div>
