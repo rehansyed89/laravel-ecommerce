@@ -1,0 +1,42 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: U:/PHP/Laravel/projects
+      to: /home/vagrant/sites
+
+sites:
+    - map: fresh.test
+      to: /home/vagrant/sites/blog_begginer/public
+      
+    - map: blog.test
+      to: /home/vagrant/sites/advanced_blog/public
+
+    - map: laravel-ecommerce.test
+      to: /home/vagrant/sites/ecommerce_test/public      
+
+databases:
+    - blogbegginer
+    - advancedblog
+    - ecommerce_test
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
