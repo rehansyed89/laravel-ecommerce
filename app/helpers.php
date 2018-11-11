@@ -11,6 +11,7 @@ function setActiveCategory($category, $class = 'active'){
 }
 
 function getTotals(){
+    $code = session()->get('coupon')['coupon_code'] ?? null;
     $discount = session()->get('coupon')['coupon_discount'] ?? 0;
     $original_tax = config('cart.tax') / 100;
     $subtotal = (Cart::subtotal() - $discount);
@@ -18,7 +19,8 @@ function getTotals(){
     $total = $subtotal + $tax;
 
     return collect([
-        'discount' =>$discount,
+        'discount_code' => $code,
+        'discount' => $discount,
         'original_tax' => $original_tax,
         'tax' => $tax,
         'subtotal' => $subtotal,
