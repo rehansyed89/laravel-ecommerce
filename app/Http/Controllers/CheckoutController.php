@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Mail\OrderPlaced;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -44,7 +46,7 @@ class CheckoutController extends Controller
      */
     public function store(CheckoutRequest $request)
     {
-
+        $product_names = array();
         $contents =Cart::content()->map(function($item){
             return $item->model->slug.', '.$item->qty;
         })->values()->toJson();
@@ -63,8 +65,16 @@ class CheckoutController extends Controller
             ]);
 
             // Insert into order table
-            $this->addToOrdersTables($request, null);        
+            $order = $this->addToOrdersTables($request, null);
             
+            //get name of each product to add produc names in the subject line of the mail
+            foreach ($order->products as $product) {
+                array_push($product_names, $product->name);
+            }        
+            
+            // implode the array product names to make a string
+            $produuct_name_imploded = implode(", ", $product_names);
+            Mail::send(new OrderPlaced($order, $produuct_name_imploded));
             // SUCCESSFUL
             Cart::instance('default')->destroy();
             session()->forget('coupon');
